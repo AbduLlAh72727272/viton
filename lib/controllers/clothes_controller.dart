@@ -12,48 +12,94 @@ class ClothesController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _firestore.collection('clothes')
-        .orderBy('createdAt', descending: true)
-        .snapshots()
-        .listen((snapshot) {
-      clothes.assignAll(snapshot.docs.map((doc) {
-        final data = doc.data();
-        data['id'] = doc.id;
-        return data;
-      }).toList());
+    _initializeFirestore();
+  }
+
+  /// Initialize Firestore with error handling
+  void _initializeFirestore() {
+    try {
+      _firestore.collection('clothes')
+          .orderBy('createdAt', descending: true)
+          .snapshots()
+          .listen(
+        (snapshot) {
+          try {
+            clothes.assignAll(snapshot.docs.map((doc) {
+              final data = doc.data();
+              data['id'] = doc.id;
+              return data;
+            }).toList());
+            updateFilteredClothes();
+          } catch (e) {
+            print('Error processing Firestore data: $e');
+            // Continue with empty list
+            clothes.assignAll([]);
+            updateFilteredClothes();
+          }
+        },
+        onError: (error) {
+          print('Firestore error: $error');
+          // Continue with empty list
+          clothes.assignAll([]);
+          updateFilteredClothes();
+        },
+      );
+    } catch (e) {
+      print('Error initializing Firestore: $e');
+      // Initialize with empty list
+      clothes.assignAll([]);
       updateFilteredClothes();
-    });
+    }
   }
 
   Future<void> addClothingItem(String name, String imageUrl, String category,
       {bool isLongTop = false}) async {
-    final newItem = {
-      'name': name,
-      'image': imageUrl,
-      'category': category,
-      'isLongTop': isLongTop,
-      'createdAt': FieldValue.serverTimestamp(),
-    };
-    final docRef = await _firestore.collection('clothes').add(newItem);
-    // No need to add to clothes manually, stream listener will handle it!
+    try {
+      final newItem = {
+        'name': name,
+        'image': imageUrl,
+        'category': category,
+        'isLongTop': isLongTop,
+        'createdAt': FieldValue.serverTimestamp(),
+      };
+      final docRef = await _firestore.collection('clothes').add(newItem);
+      print('Clothing item added successfully');
+    } catch (e) {
+      print('Error adding clothing item: $e');
+      // Continue without throwing error
+    }
   }
 
   Future<void> removeClothingItem(int index) async {
-    final item = clothes[index];
-    if (item['id'] != null) {
-      await _firestore.collection('clothes').doc(item['id']).delete();
+    try {
+      if (index >= 0 && index < clothes.length) {
+        final item = clothes[index];
+        if (item['id'] != null) {
+          await _firestore.collection('clothes').doc(item['id']).delete();
+          print('Clothing item removed successfully');
+        }
+      }
+    } catch (e) {
+      print('Error removing clothing item: $e');
+      // Continue without throwing error
     }
-    // No need to remove from clothes manually, stream listener will handle it!
   }
 
   Future<void> updateClothingItem(int index, String name, String category) async {
-    final item = clothes[index];
-    if (item['id'] != null) {
-      await _firestore.collection('clothes').doc(item['id']).update({
-        'name': name,
-        'category': category,
-      });
-      // No need to update clothes manually, stream listener will handle it!
+    try {
+      if (index >= 0 && index < clothes.length) {
+        final item = clothes[index];
+        if (item['id'] != null) {
+          await _firestore.collection('clothes').doc(item['id']).update({
+            'name': name,
+            'category': category,
+          });
+          print('Clothing item updated successfully');
+        }
+      }
+    } catch (e) {
+      print('Error updating clothing item: $e');
+      // Continue without throwing error
     }
   }
 

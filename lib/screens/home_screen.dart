@@ -4,9 +4,12 @@ import 'package:get/get.dart'; // ✅ GetX for localization & navigation
 import 'package:viton/screens/virtual_tryon_tips.dart'; // ✅ Navigation to Try-On Tips screen
 import '../widgets/image_picker_widget.dart';
 import '../widgets/custom_button.dart';
+import '../core/responsive_helper.dart'; // ✅ Responsive design utilities
 import 'outfit.dart'; // ✅ Navigation to outfit screen
 
 class HomeScreen extends StatefulWidget {
+  const HomeScreen({Key? key}) : super(key: key);
+
   @override
   _HomeScreenState createState() => _HomeScreenState();
 }
@@ -40,24 +43,24 @@ class _HomeScreenState extends State<HomeScreen> {
           /// **Main Content**
           SafeArea(
             child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: ResponsiveHelper.getResponsivePadding(context),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  SizedBox(height: 30.h),
+                  SizedBox(height: ResponsiveHelper.getResponsiveSpacing(30)),
 
                   /// **Localized "Start Here" Text**
                   Text(
                     "start_here".tr, // ✅ Localized text (change in translation file)
                     textAlign: TextAlign.center,
                     style: TextStyle(
-                      fontSize: 24.sp, // 📏 Responsive font size
+                      fontSize: ResponsiveHelper.getResponsiveFontSize(24), // 📏 Responsive font size
                       fontWeight: FontWeight.bold,
                       color: Colors.black, // 🎨 Change text color here
                     ),
                   ),
 
-                  SizedBox(height: 550.h), // 🏗 Adjust spacing based on UI design
+                  SizedBox(height: ResponsiveHelper.getResponsiveSpacing(550)), // 🏗 Adjust spacing based on UI design
 
                   /// **Import Image Button**
                   CustomButton(
@@ -70,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     textColor: Color(0xFFcd8e7e), // 🎨 Text color
                   ),
 
-                  SizedBox(height: 20),
+                  SizedBox(height: ResponsiveHelper.getResponsiveSpacing(20)),
                 ],
               ),
             ),

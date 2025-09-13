@@ -1,6 +1,8 @@
+// contact_us_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:get/get.dart'; // ✅ Import GetX for localization
+import 'package:get/get.dart';
 
 class ContactUsScreen extends StatelessWidget {
   @override
@@ -12,10 +14,10 @@ class ContactUsScreen extends StatelessWidget {
         elevation: 0,
         leading: IconButton(
           icon: Icon(Icons.arrow_back, color: Colors.black),
-          onPressed: () => Navigator.pop(context), // 🔄 Go back to the previous screen
+          onPressed: () => Navigator.pop(context),
         ),
         title: Text(
-          "contact_us".tr, // ✅ Localized text (Change in translation files)
+          "contact_us".tr,
           style: TextStyle(
             color: Colors.black,
             fontSize: 18.sp,
@@ -49,7 +51,7 @@ class ContactUsScreen extends StatelessWidget {
                     children: [
                       /// Title Section
                       Text(
-                        "get_in_touch".tr, // ✅ Localized text for "Get in Touch"
+                        "get_in_touch".tr,
                         style: TextStyle(
                           fontSize: 18.sp,
                           fontWeight: FontWeight.bold,
@@ -60,17 +62,18 @@ class ContactUsScreen extends StatelessWidget {
 
                       /// Short description for contact
                       Text(
-                        "contact_us_info".tr, // ✅ Localized text for description
+                        "contact_us_info".tr,
                         style: TextStyle(fontSize: 14.sp, color: Colors.black87),
                       ),
                       SizedBox(height: 20.h),
 
-                      /// Contact Details (Modify these values if needed)
-                      _contactItem(Icons.email, "email".tr, "info@mmmm.com"), // 📧 Email
+                      /// Contact Details (MODIFIED SECTION)
+                      // Pass the new translation keys to the helper function
+                      _contactItem(Icons.email, "email".tr, "contact_email_value".tr),
                       SizedBox(height: 15.h),
-                      _contactItem(Icons.phone, "phone".tr, "+1 234 567 890"), // 📞 Phone number
+                      _contactItem(Icons.phone, "phone".tr, "contact_phone_value".tr),
                       SizedBox(height: 15.h),
-                      _contactItem(Icons.location_on, "address".tr, "1234 Virtual Try-On St, Fashion City, NY 10001"), // 📍 Address
+                      _contactItem(Icons.location_on, "address".tr, "contact_address_value".tr),
                     ],
                   ),
                 ),
@@ -82,21 +85,21 @@ class ContactUsScreen extends StatelessWidget {
     );
   }
 
-  /// Helper function to create a contact info row (icon + text)
+  /// Helper function (No changes needed here)
   Widget _contactItem(IconData icon, String title, String value) {
     return Row(
       children: [
-        Icon(icon, color: Colors.black87, size: 24.w), // 📌 Contact Icon
+        Icon(icon, color: Colors.black87, size: 24.w),
         SizedBox(width: 10.w),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              title, // 🔤 Localized title (email, phone, address, etc.)
+              title,
               style: TextStyle(fontSize: 14.sp, fontWeight: FontWeight.bold, color: Colors.black),
             ),
             Text(
-              value, // 📝 The actual contact info (Modify as needed)
+              value, // This will now display the localized value
               style: TextStyle(fontSize: 14.sp, color: Colors.black54),
             ),
           ],

@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
-	<string>Viton New</string>
+	<string>Viton</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -13,7 +13,7 @@
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleName</key>
-	<string>viton_new</string>
+	<string>viton</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
@@ -44,6 +44,102 @@
 	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+	
+	<!-- Camera and Photo Library Permissions for Image Picker -->
+	<key>NSCameraUsageDescription</key>
+	<string>This app needs access to camera to take photos for virtual try-on</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app needs access to photo library to select images for virtual try-on</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>This app needs access to save processed images to your photo library</string>
+	
+	<!-- Network Permissions for Firebase and HTTP -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>firebase.googleapis.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+			<key>firebaseapp.com</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSExceptionMinimumTLSVersion</key>
+				<string>TLSv1.0</string>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+	
+	<!-- URL Launcher Permissions -->
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>https</string>
+		<string>http</string>
+		<string>mailto</string>
+		<string>tel</string>
+		<string>sms</string>
+	</array>
+	
+	<!-- Share Plus Permissions -->
+	<key>UIActivityTypes</key>
+	<array>
+		<string>UIActivityTypeMail</string>
+		<string>UIActivityTypeMessage</string>
+		<string>UIActivityTypeCopyToPasteboard</string>
+		<string>UIActivityTypeAirDrop</string>
+		<string>UIActivityTypePrint</string>
+		<string>UIActivityTypeSaveToCameraRoll</string>
+	</array>
+	
+	<!-- Background Modes for Firebase -->
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>background-processing</string>
+		<string>background-fetch</string>
+	</array>
+	
+	<!-- Minimum iOS Version -->
+	<key>MinimumOSVersion</key>
+	<string>12.0</string>
+	
+	<!-- iOS 16+ specific configurations -->
+	<key>UIUserInterfaceStyle</key>
+	<string>Light</string>
+	
+	<!-- Prevent app from being killed in background -->
+	<key>UIApplicationExitsOnSuspend</key>
+	<false/>
+	
+	<!-- iOS 13+ compatibility without scene delegate -->
+	<key>UIApplicationSupportsMultipleScenes</key>
+	<false/>
+	
+	<!-- Safe Area Support for all iOS devices -->
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<true/>
+	
+	<!-- Support for all iOS device sizes -->
+	<key>UISupportedInterfaceOrientations~iphone</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	
+	<!-- Support for Dynamic Type -->
+	<key>UIFontTextStyle</key>
 	<true/>
 </dict>
 </plist>

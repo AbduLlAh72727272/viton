@@ -11,10 +11,19 @@ class OnboardingScreen extends StatelessWidget {
       body: Stack(
         fit: StackFit.expand,
         children: [
-          /// **Background Image**
-          Image.asset(
-            'assets/images/login.jpg', // 🖼 Change background image here
-            fit: BoxFit.cover,
+          /// **Background Gradient**
+          Container(
+            decoration: BoxDecoration(
+              gradient: LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0xFFD19688),
+                  Color(0xFFB8860B),
+                  Color(0xFF8B4513),
+                ],
+              ),
+            ),
           ),
 
           /// **Language Toggle Positioned at Top Right**

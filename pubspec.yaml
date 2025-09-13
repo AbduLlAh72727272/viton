@@ -88,6 +88,9 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/icons/APP-ICON.jpg"
+  ios_remove_alpha_icon: true
+  adaptive_icon_background: "#D19688"
+  adaptive_icon_foreground: "assets/icons/APP-ICON.jpg"
 
   # To add assets to your application, add an assets section, like this:
   # assets:

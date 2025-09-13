@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+This file explicitly tells the Android OS how to handle network security for specific domains.
+By adding 'api.klingai.com', we ensure that even older Android versions can establish a
+secure TLS/SSL connection to the server.
+-->
+<network-security-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <domain includeSubdomains="true">api.klingai.com</domain>
+    </domain-config>
+</network-security-config>

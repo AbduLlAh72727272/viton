@@ -160,7 +160,7 @@ class _TryOnResultScreenState extends State<TryOnResultScreen> {
   }
 
   void _redirectToBuyNow() async {
-    final Uri url = Uri.parse("https://www.google.com");
+    final Uri url = Uri.parse("https://www.ziniboutique.com/el-gr/virtualtryon");
     if (await canLaunchUrl(url)) {
       final launched = await launchUrl(url, mode: LaunchMode.externalApplication);
       if (!launched) {

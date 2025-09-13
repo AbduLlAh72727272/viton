@@ -5,11 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart'; // 🔥 Firebase Authenticati
 import 'package:shared_preferences/shared_preferences.dart'; // ✅ Remember Me feature
 import '../routes/app_routes.dart'; // 🔄 App navigation routes
 import '../widgets/bottom_navbar.dart'; // ✅ User Navigation
+import '../core/responsive_helper.dart'; // ✅ Responsive design utilities
 import 'admin_screen.dart'; // 🛠️ Admin panel
 import 'ForgetPasswordScreen.dart'; // 🔑 Forgot password screen
 import '../localization_service.dart'; // 🌍 Localization support
 
 class SignInScreen extends StatefulWidget {
+  const SignInScreen({Key? key}) : super(key: key);
+
   @override
   _SignInScreenState createState() => _SignInScreenState();
 }
@@ -99,13 +102,16 @@ class _SignInScreenState extends State<SignInScreen> {
               /// **Title: Sign In**
               Text(
                 "sign_in".tr, // ✅ Localized text (Modify in translation files)
-                style: TextStyle(fontSize: 28.sp, fontWeight: FontWeight.bold),
+                style: TextStyle(
+                  fontSize: ResponsiveHelper.getResponsiveFontSize(28), 
+                  fontWeight: FontWeight.bold
+                ),
               ),
-              SizedBox(height: 30.h),
+              SizedBox(height: ResponsiveHelper.getResponsiveSpacing(30)),
 
               /// **Email Input Field**
               _buildTextField(controller: _emailController, label: "email".tr, hint: "example@gmail.com"),
-              SizedBox(height: 15.h),
+              SizedBox(height: ResponsiveHelper.getResponsiveSpacing(15)),
 
               /// **Password Input Field (With Visibility Toggle)**
               _buildTextField(
@@ -117,6 +123,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   icon: Icon(
                     _obscurePassword ? Icons.visibility_off : Icons.visibility,
                     color: Colors.grey,
+                    size: ResponsiveHelper.getResponsiveIconSize(20),
                   ),
                   onPressed: () {
                     setState(() {
@@ -126,7 +133,7 @@ class _SignInScreenState extends State<SignInScreen> {
                 ),
               ),
 
-              SizedBox(height: 10.h),
+              SizedBox(height: ResponsiveHelper.getResponsiveSpacing(10)),
 
               /// **Remember Me & Forgot Password**
               Row(
@@ -217,23 +224,23 @@ class _SignInScreenState extends State<SignInScreen> {
         /// **Label**
         Text(
           label, // ✅ Localized label
-          style: TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w500),
+          style: TextStyle(
+            fontSize: ResponsiveHelper.getResponsiveFontSize(16), 
+            fontWeight: FontWeight.w500
+          ),
         ),
-        SizedBox(height: 5.h),
+        SizedBox(height: ResponsiveHelper.getResponsiveSpacing(5)),
 
         /// **Input Field**
         TextField(
           controller: controller,
           obscureText: obscureText, // 🔒 Hide password if required
-          decoration: InputDecoration(
-            hintText: hint, // 📧 Placeholder text
+          decoration: ResponsiveHelper.getResponsiveTextFieldDecoration(
+            hintText: hint,
+            suffixIcon: suffixIcon,
+          ).copyWith(
             filled: true,
-            fillColor: Colors.grey[200], // 🎨 Background color
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.r),
-              borderSide: BorderSide.none,
-            ),
-            suffixIcon: suffixIcon, // 🔄 Optional visibility toggle
+            fillColor: ResponsiveHelper.isIOS ? Colors.grey.shade50 : Colors.grey.shade200,
           ),
         ),
       ],

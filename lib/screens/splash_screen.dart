@@ -42,16 +42,22 @@ class _SplashScreenState extends State<SplashScreen>
 
   /// **Check if User is Logged In (Using SharedPreferences)**
   Future<void> _checkUserLoginStatus() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? storedUID = prefs.getString('user_uid'); // ✅ Get stored User ID
+    try {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? storedUID = prefs.getString('user_uid'); // ✅ Get stored User ID
 
-    // ⏳ Wait for splash animation to finish
-    await Future.delayed(Duration(seconds: 3));
+      // ⏳ Wait for splash animation to finish
+      await Future.delayed(Duration(seconds: 3));
 
-    if (storedUID != null) {
-      Get.offAll(() => BottomNavBar()); // ✅ Navigate to Home if logged in
-    } else {
-      Get.offAllNamed(Routes.ONBOARD); // ✅ Navigate to Onboarding if not logged in
+      if (storedUID != null && storedUID.isNotEmpty) {
+        Get.offAll(() => BottomNavBar()); // ✅ Navigate to Home if logged in
+      } else {
+        Get.offAllNamed(Routes.ONBOARD); // ✅ Navigate to Onboarding if not logged in
+      }
+    } catch (e) {
+      print('Error checking login status: $e');
+      // Fallback to onboarding on error
+      Get.offAllNamed(Routes.ONBOARD);
     }
   }
 
@@ -67,11 +73,26 @@ class _SplashScreenState extends State<SplashScreen>
             top: 0.h,
             child: FadeIn(
               duration: Duration(seconds: 2), // 🎬 Animation duration
-              child: Image.asset(
-                'assets/images/splash.jpg', // 🖼 Change splash background here
+              child: Container(
                 width: 800.w,
                 height: 630.h,
-                fit: BoxFit.contain,
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Color(0xFFD19688).withOpacity(0.1),
+                      Colors.white,
+                    ],
+                  ),
+                ),
+                child: Center(
+                  child: Icon(
+                    Icons.shopping_bag_outlined,
+                    size: 120.w,
+                    color: Color(0xFFD19688),
+                  ),
+                ),
               ),
             ),
           ),
@@ -84,11 +105,25 @@ class _SplashScreenState extends State<SplashScreen>
               builder: (context, child) {
                 return Transform.scale(
                   scale: _logoAnimation.value, // 🔄 Apply scaling animation
-                  child: Image.asset(
-                    'assets/icons/splash_icon.jpg', // 🖼 Change splash logo here
+                  child: Container(
                     width: 170.w,
                     height: 170.h,
-                    fit: BoxFit.contain,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFD19688),
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Color(0xFFD19688).withOpacity(0.3),
+                          blurRadius: 20,
+                          spreadRadius: 5,
+                        ),
+                      ],
+                    ),
+                    child: Icon(
+                      Icons.shopping_bag_outlined,
+                      size: 80.w,
+                      color: Colors.white,
+                    ),
                   ),
                 );
               },
