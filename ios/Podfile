@@ -32,21 +32,6 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
-  
-  # Firebase specific configurations
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Firestore'
-  pod 'Firebase/Storage'
-  
-  # Image picker configurations
-  pod 'TOCropViewController', '~> 2.6.1'
-  
-  # URL launcher configurations
-  pod 'url_launcher_ios', :path => '.symlinks/plugins/url_launcher_ios/ios'
-  
-  # Share plus configurations
-  pod 'share_plus', :path => '.symlinks/plugins/share_plus/ios'
 end
 
 post_install do |installer|
@@ -56,12 +41,6 @@ post_install do |installer|
     # iOS 12.0 minimum deployment target
     target.build_configurations.each do |config|
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '12.0'
-      config.build_settings['GCC_PREPROCESSOR_DEFINITIONS'] ||= [
-        '$(inherited)',
-        'PERMISSION_CAMERA=1',
-        'PERMISSION_PHOTOS=1',
-        'PERMISSION_NOTIFICATIONS=1',
-      ]
     end
   end
 end
